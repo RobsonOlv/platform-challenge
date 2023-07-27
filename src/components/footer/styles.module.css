@@ -1,17 +1,24 @@
 .footer {
-    background: gray;
+    background: #171717;
     display: flex;
     justify-content: center;
     padding-block: 12px;
+    color: var(--white);
 }
 
 .footerLinks {
     display: flex;
-    gap: 2rem;
     padding: 0;
+    font-size: 12px;
 }
 .footerLinks > li {
     display: block;
+}
+
+.separator {
+    height: auto;
+    margin-inline: 1rem;
+    border-left: 1px solid var(--white);
 }
 
 .rightsContainer {
@@ -19,5 +26,22 @@
     display: flex;
     width: 100%;
     justify-content: center;
+    align-items: center;
     gap: 1rem;
+    font-size: 12px;
 }
+
+@media screen and (min-width: 40em) {
+}
+
+@media screen and (min-width: 52em) {
+    .footerLinks {
+        font-size: 16px;
+    }
+
+    .rightsContainer {
+        font-size: 16px;
+    }
+}
+@media screen and (min-width: 64em) {}
+@media screen and (min-width: 80em) {}

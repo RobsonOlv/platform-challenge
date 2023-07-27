@@ -7,7 +7,9 @@ const Footer = () => {
                 <nav>
                     <ul className={styles.footerLinks}>
                         <li>Terms of Service</li>
+                        <div className={styles.separator}/>
                         <li>Contact</li>
+                        <div className={styles.separator}/>
                         <li>Privacy policy</li>
                     </ul>
                 </nav>
