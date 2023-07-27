@@ -1,0 +1,23 @@
+.footer {
+    background: gray;
+    display: flex;
+    justify-content: center;
+    padding-block: 12px;
+}
+
+.footerLinks {
+    display: flex;
+    gap: 2rem;
+    padding: 0;
+}
+.footerLinks > li {
+    display: block;
+}
+
+.rightsContainer {
+    margin-top: 12px;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 1rem;
+}
