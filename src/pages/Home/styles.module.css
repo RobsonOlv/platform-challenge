@@ -1,0 +1,91 @@
+
+.aboutContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.aboutDescriptionContainer {
+    max-width: 600px;
+    padding-block: 24px;
+    padding-inline: 12px;
+}
+
+.aboutDescriptionTitle {
+    font-size: 24px;
+    margin-bottom: 24px;
+}
+
+.aboutDescriptionTitle > span {
+    font-weight: 600;
+    color: var(--purple);
+}
+
+.servicesContainer {
+    padding-block: 32px;
+    background-color: var(--purple);
+    display: flex;
+    justify-content: center;
+}
+
+.serviceCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    color: var(--white);
+    margin-bottom: 32px;
+    text-align: center;
+}
+
+.serviceButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--blue);
+    font-size: 18px;
+    padding: 12px 24px;
+    color: var(--white);
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.infoContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-block: 64px;
+    text-align: center;
+    gap: 8rem;
+}
+
+.infoContainer > h2 {
+    width: 220px;
+    font-size: 32px;
+    color: var(--blue);
+}
+
+@media screen and (min-width: 40em) {
+    .aboutDescriptionTitle {
+        font-size: 26px;
+        padding-inline: 0;
+    }
+
+    .serviceCard {
+        flex-direction: row;
+        gap: 5rem;
+        margin-bottom: 24px;
+        text-align: start;
+    }
+}
+@media screen and (min-width: 52em) {
+    .infoContainer {
+        flex-direction: row;
+        text-align: start;
+    }
+}
+@media screen and (min-width: 64em) {}
+@media screen and (min-width: 80em) {}
