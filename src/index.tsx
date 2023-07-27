@@ -4,14 +4,22 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
 import Header from 'components/header'
 import Footer from 'components/footer'
-import HomePage from 'pages/home'
+
+import HomePage from 'pages/Home'
+import PlansPage from 'pages/Plans'
+
 import './index.css'
+import 'utils/variables.css'
 
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <HomePage />
+  },
+  {
+    path: '/plans',
+    element: <PlansPage />
   }
 ])
 
