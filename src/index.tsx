@@ -10,6 +10,7 @@ import PlansPage from 'pages/Plans'
 
 import './index.css'
 import 'utils/variables.css'
+import AuthContextProvider from 'utils/contexts/AuthContext'
 
 
 const router = createBrowserRouter([
@@ -28,8 +29,10 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Header/>
-    <RouterProvider router={router} />
-    <Footer/>
+    <AuthContextProvider>
+      <Header/>
+      <RouterProvider router={router} />
+      <Footer/>
+    </AuthContextProvider>
   </React.StrictMode>
 );

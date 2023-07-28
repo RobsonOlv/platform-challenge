@@ -1,0 +1,138 @@
+.container {
+    position: absolute;
+    top: 0;
+    z-index: 4;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.article {
+    position: absolute;
+    background-color: var(--white);
+    border-radius: 4px;
+    padding-top: 24px;
+    width: 400px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.article > header {
+    padding-inline: 32px;
+    text-align: end;
+}
+
+.article > h2 {
+    font-size: 32px;
+    margin-block: 46px;
+    text-align: center;
+}
+
+.article > form {
+    display: flex;
+    flex-direction: column;
+    padding-inline: 32px;
+    padding-bottom: 42px;
+}
+
+.article > form > label {
+    display: flex;
+    padding-block: 10px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--gray);
+}
+
+.input {
+    border: none;
+    background-color: transparent !important;
+    width: 100%;
+    margin-left: 10px;
+}
+
+.input:focus {
+    outline: none;
+}
+
+.input:-webkit-autofill,
+.input:-webkit-autofill:hover, 
+.input:-webkit-autofill:focus, 
+.input:-webkit-autofill:active{
+    border: none;
+    -webkit-text-fill-color: #8D8D8D;
+    -webkit-box-shadow: 0 0 0px 1000px var(--white) inset;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.errorMessage {
+    font-size: 12px;
+    color: var(--danger);
+    margin-bottom: 8px;
+}
+
+.cardButton {
+    border: 1px solid var(--confirm);
+    background-color: var(--confirm);
+    border-radius: 4px;
+    padding: 10px;
+    display: flex;
+    color: var(--white);
+    justify-content: center;
+    cursor: pointer;
+    margin-top: 24px;
+    transition: 0.3s ease-out;
+}
+
+.cardButton:hover {
+    border: 1px solid var(--confirm);
+    background-color: var(--white);
+    color: var(--confirm);
+}
+
+.cardButtonSeparator {
+    text-align: center;
+    margin-block: 8px;
+}
+
+.googleButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: 1px solid var(--gray);
+    gap: 8px;
+    border-radius: 4px;
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.3s ease-out;
+}
+
+.googleButton:hover {
+    background-color: var(--gray);
+}
+
+.googleButton > img {
+    width: 24px;
+    height: auto;
+}
+
+.article > footer {
+    padding: 16px 10px;
+    border-top: 1px solid var(--gray);
+    font-size: 12px;
+    text-align: center;
+}
+
+.article > footer span {
+    color: var(--confirm);
+    cursor: pointer;
+}
+
+.navigationButton {
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.navigationButton:hover {
+    transform: scale(1.5);
+}
