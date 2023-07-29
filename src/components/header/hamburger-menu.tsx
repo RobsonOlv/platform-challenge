@@ -1,11 +1,15 @@
+import { useContext, useState } from 'react'
+import { AuthContext } from 'utils/contexts/AuthContext'
+
 import HamburgerMenuIcon from 'components/images/hamburguer-menu-icon'
 import OutlinedCloseIcon from 'components/images/outlined-close-icon'
 import ArrowIcon from 'components/images/arrow-icon'
+
 import styles from './styles.module.css'
-import { useState } from 'react'
 
 const HamburgerMenu = () => {
     const [isOpen, setIsOpen] = useState(false)
+    const { userData, logout, toggleAuthModal } = useContext(AuthContext)
 
     return (
         <section className={styles.hamburgerMenuContainer}>
@@ -31,8 +35,12 @@ const HamburgerMenu = () => {
                         Time
                         <ArrowIcon />
                     </li>
-                    <li style={{ border: 'none' }}>
+                    <li>
                         Suporte
+                        <ArrowIcon />
+                    </li>
+                    <li  onClick={() => userData === null ? toggleAuthModal(true) : logout()} style={{ color: userData === null ? 'var(--blue)' : 'var(--danger)', border: 'none' }}>
+                        {userData === null ? 'Login': 'Logout'}
                         <ArrowIcon />
                     </li>
                 </ul>

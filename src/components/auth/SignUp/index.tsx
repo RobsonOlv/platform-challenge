@@ -1,7 +1,8 @@
 import { useFormik } from 'formik'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { AuthContext } from 'utils/contexts/AuthContext'
 import { validate } from 'utils/functions'
+import FirebaseService from 'utils/services/firebase.service'
 
 import AvatarIcon from 'components/images/avatar-icon'
 import LockIcon from 'components/images/lock-icon'
@@ -11,7 +12,8 @@ import ArrowBackIcon from 'components/images/arrow-back'
 import styles from '../styles.module.css'
 
 const SignUp = () => {
-    const { signUpActive, toggleAuthModal, toggleSignUp } = useContext(AuthContext)
+    const { signUpActive, register, toggleAuthModal, toggleSignUp } = useContext(AuthContext)
+    const [loginError, setLoginError] = useState('')
 
     const formik = useFormik({
         initialValues: {
@@ -22,10 +24,12 @@ const SignUp = () => {
             signUpActive
         },
         validate,
-        onSubmit: (values) => {
-            console.log('submit')
+        onSubmit: async (values) => {
+            const message = await register(values.email, values.password)
+            if (message) setLoginError(message)
         },
     });
+
     return (
         <article className={styles.article}>
             <header>
@@ -88,6 +92,9 @@ const SignUp = () => {
                         : null
                 }
                 <input className={styles.cardButton} disabled={!(formik.isValid && formik.dirty)} type="submit" value="Sign Up" />
+                {
+                    loginError ? <span className={styles.submitError}>{ loginError }</span> : null
+                }
             </form>
             <footer>
                 <ArrowBackIcon className={styles.navigationButton} onClick={() => toggleSignUp(false)} />

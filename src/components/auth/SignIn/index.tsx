@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { useFormik } from 'formik'
 import { AuthContext } from 'utils/contexts/AuthContext'
 import { validate } from 'utils/functions'
@@ -10,7 +10,9 @@ import CloseIcon from 'components/images/close-icon'
 import styles from '../styles.module.css'
 
 const SignIn = () => {
-    const { signUpActive, toggleAuthModal, toggleSignUp } = useContext(AuthContext)
+    const { signUpActive, login, googleLogin, toggleAuthModal, toggleSignUp } = useContext(AuthContext)
+    const [loginError, setLoginError] = useState('')
+
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -18,10 +20,17 @@ const SignIn = () => {
             signUpActive
         },
         validate,
-        onSubmit: (values) => {
-            console.log('submit')
+        onSubmit: async (values) => {
+            const message = await login(values.email, values.password)
+            if (message) setLoginError(message)
         },
     });
+
+    const handleGoogleSubmit = async () => {
+        const message = await googleLogin()
+
+        if(message) setLoginError(message)
+    }
 
     return (
         <article className={styles.article}>
@@ -40,7 +49,6 @@ const SignIn = () => {
                         placeholder="E-mail"
                         type="email"
                         autoComplete="off"
-                        defaultValue={'dwadawda'}
                         onChange={formik.handleChange}
                         onBlur={formik.handleBlur}
                         value={formik.values.email}
@@ -69,13 +77,18 @@ const SignIn = () => {
                         ? <span className={styles.errorMessage}>{formik.errors.password}</span>
                         : null
                 }
-                <input className={styles.cardButton} disabled={!(formik.isValid && formik.dirty)} type="submit" value="Sign In" />
+                <button className={styles.cardButton} type="submit" disabled={!(formik.isValid && formik.dirty)}>Sign In</button>
                 <p className={styles.cardButtonSeparator}>or</p>
-                <button className={styles.googleButton}>
+            </form>
+            <div style={{ paddingInline: 32 }}>
+                <button className={styles.googleButton} onClick={handleGoogleSubmit}>
                     <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="Logo da Google" />
                     Continue with Google
                 </button>
-            </form>
+                {
+                    loginError ? <span className={styles.submitError}>{ loginError }</span> : null
+                }
+            </div>
             <footer>
                 <p>Don’t you have an account? <span onClick={() => toggleSignUp(true)}>Create one</span></p>
             </footer>

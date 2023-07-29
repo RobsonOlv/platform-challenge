@@ -5,15 +5,15 @@ import styles from './styles.module.css'
 import { AuthContext } from 'utils/contexts/AuthContext'
 
 const Auth = () => {
-    const { signUpActive } = useContext(AuthContext)
+    const { authModalActive, signUpActive } = useContext(AuthContext)
 
-    return (
+    return authModalActive ? (
         <div className={styles.container}>
             {
                 signUpActive ? <SignUp /> : <SignIn />
             }
         </div>
-    )
+    ) : null
 }
 
 export default Auth

@@ -24,7 +24,7 @@
 
 .rightLinks {
     display: flex;
-    gap: 3rem;
+    gap: 2rem;
 }
 
 .rightLinks > li {
@@ -133,10 +133,17 @@
     }
 
     .header {
-        padding-inline: 48px;
+        padding-inline: 40px 24px;
     }
 
     .rightLinks {
         font-size: 16px;
+        gap: 3rem;
+    }
+}
+
+@media screen and (min-width: 60em) {
+    .header {
+        padding-inline: 48px;
     }
 }

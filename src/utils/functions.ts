@@ -1,11 +1,7 @@
 import { validateProps } from "./typings/interfaces";
 
 export const validate = (values: validateProps) => {
-    const errors: validateProps = {
-        email: '',
-        password: '',
-        passwordValidation: ''
-    };
+    const errors: any = {};
   
     if (!values.email) {
       errors.email = 'Required';
@@ -24,6 +20,6 @@ export const validate = (values: validateProps) => {
             errors.passwordValidation = 'Passwords do not match'
         }
     }
-
+    
     return errors;
 };

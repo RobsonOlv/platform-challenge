@@ -12,7 +12,7 @@
     background-color: var(--white);
     border-radius: 4px;
     padding-top: 24px;
-    width: 400px;
+    width: 270px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -33,7 +33,6 @@
     display: flex;
     flex-direction: column;
     padding-inline: 32px;
-    padding-bottom: 42px;
 }
 
 .article > form > label {
@@ -79,7 +78,7 @@
     color: var(--white);
     justify-content: center;
     cursor: pointer;
-    margin-top: 24px;
+    margin-block: 24px;
     transition: 0.3s ease-out;
 }
 
@@ -87,6 +86,13 @@
     border: 1px solid var(--confirm);
     background-color: var(--white);
     color: var(--confirm);
+}
+
+.cardButton:disabled {
+    cursor: no-drop;
+    background-color: var(--gray);
+    border: 1px solid var(--gray);
+    color: var(--white);
 }
 
 .cardButtonSeparator {
@@ -105,6 +111,8 @@
     padding: 10px;
     cursor: pointer;
     transition: 0.3s ease-out;
+    width: 100%;
+    margin-bottom: 42px;
 }
 
 .googleButton:hover {
@@ -135,4 +143,19 @@
 
 .navigationButton:hover {
     transform: scale(1.5);
+}
+
+.submitError {
+    display: block;
+    width: 100%;
+    text-align: center;
+    color: var(--danger);
+    font-size: 14px;
+    margin-block: 24px;
+}
+
+@media screen and (min-width: 40em) {
+    .article {
+        width: 400px;
+    }
 }
