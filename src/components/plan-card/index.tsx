@@ -1,3 +1,5 @@
+import { useContext } from 'react'
+import { AuthContext } from 'utils/contexts/AuthContext'
 import TriangleImage from 'components/images/triangle'
 import ConfirmIcon from 'components/images/confirm-icon'
 import FilledCloseIcon from 'components/images/filled-close-icon'
@@ -16,7 +18,17 @@ export interface PlanCardProps {
 }
 
 const PlanCard = ({ title, price, color, includes, url }: PlanCardProps) => {
+    const { userData, toggleAuthModal } = useContext(AuthContext)
     const [int, decim] = String(price).split('.')
+
+    const purchase = () => {
+        if(!userData) {
+            toggleAuthModal(true)
+        } else {
+            console.log('implementar a compra')
+        }
+    }
+
     return (
         <article className={styles.planCard}>
             <header className={styles.planCardName} style={{ backgroundColor: color }}>
@@ -52,7 +64,7 @@ const PlanCard = ({ title, price, color, includes, url }: PlanCardProps) => {
                         </ul>
                     </div>
                 </div>
-                <button>
+                <button onClick={purchase}>
                     Aproveitar oferta
                 </button>
             </div>
