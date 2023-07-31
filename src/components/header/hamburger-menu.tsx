@@ -23,22 +23,30 @@ const HamburgerMenu = () => {
             }
             <nav className={styles.hamburgerNav} style={{ left: isOpen ? '0' : '-100%'  }}>
                 <ul className={styles.hamburgerLinks}>
-                    <li>
-                        <a href="https://www.valcann.com.br/valcann/carreiras" target="_blank" rel="noreferrer">About</a>
-                        <ArrowIcon />
-                    </li>
-                    <li>
-                        <a href="/plans">Services</a>
-                        <ArrowIcon />
-                    </li>
-                    <li>
-                        <a href="https://www.valcann.com.br/valcann/carreiras" target="_blank" rel="noreferrer">Team</a>
-                        <ArrowIcon />
-                    </li>
-                    <li>
-                        Support
-                        <ArrowIcon />
-                    </li>
+                    <a href="https://www.valcann.com.br/valcann/carreiras" target="_blank" rel="noreferrer">
+                        <li>
+                            About
+                            <ArrowIcon />
+                        </li>
+                    </a>
+                    <a href="/plans">
+                        <li>
+                            Services
+                            <ArrowIcon />
+                        </li>
+                    </a>
+                    <a href="https://www.valcann.com.br/valcann/carreiras" target="_blank" rel="noreferrer">
+                        <li>
+                            Team
+                            <ArrowIcon />
+                        </li>
+                    </a>
+                    <a href="https://suporte.valcann.com.br/" target="_blank" rel="noreferrer">
+                        <li>
+                            Support
+                            <ArrowIcon />
+                        </li>
+                    </a>
                     <li  onClick={() => userData === null ? toggleAuthModal(true) : logout()} style={{ color: userData === null ? 'var(--blue)' : 'var(--danger)', border: 'none' }}>
                         {userData === null ? 'Sign In': 'Sign Out'}
                         <ArrowIcon />

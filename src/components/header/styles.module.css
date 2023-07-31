@@ -97,7 +97,7 @@
     padding-block: 8px;
 }
 
-.hamburgerLinks > li {
+.hamburgerLinks li {
     display: flex;
     justify-content: space-between;
     padding-inline: 12px;
