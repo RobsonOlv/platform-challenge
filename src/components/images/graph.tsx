@@ -1,10 +1,27 @@
-import { HTMLProps } from "react"
+import { HTMLProps, useEffect, useRef, useState } from "react"
+
+import styles from './style.module.css'
 
 const GraphImage = (props: HTMLProps<SVGSVGElement>) => {
+    const [reactSelect, setRectSelect] = useState(0)
+    const groupRef = useRef<SVGGElement>(null)
+
+    useEffect(() => {
+        if(!groupRef || !groupRef.current) return
+        groupRef.current.children[reactSelect].classList.add(styles.strokeBlue)
+        const cardSlide = setInterval(() => {
+            groupRef.current?.children[reactSelect].classList.remove(styles.strokeBlue)
+            const nextRect = reactSelect === 4 ? 0 : reactSelect + 1
+            setRectSelect(nextRect)
+        }, 1500)
+
+        return () => clearInterval(cardSlide)
+    }, [reactSelect])
+
     return (
         <svg {...props} xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 800 800'>
             <rect fill='#000000' width='800' height='800' />
-            <g fill='none' stroke='#482C86' strokeWidth='3.4'>
+            <g ref={groupRef} fill='none' stroke='#482C86' strokeWidth='3.4'>
                 <path
                     d='M769 229L1037 260.9M927 880L731 737 520 660 309 538 40 599 295 764 126.5 879.5 40 599-197 493 102 382-31 229 126.5 79.5-69-63' />
                 <path d='M-31 229L237 261 390 382 603 493 308.5 537.5 101.5 381.5M370 905L295 764' />
