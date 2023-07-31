@@ -7,6 +7,7 @@ import styles from './styles.module.css'
 import LoadingComponent from 'components/loading'
 import { useEffect, useState } from 'react'
 import SatisfiedIcon from 'components/images/satisfied-icon'
+import { Link } from 'react-router-dom'
 
 interface PurchaseModalProps {
     chosenPlan: Plan
@@ -39,7 +40,7 @@ const PurchaseModal = ({ chosenPlan, togglePurchaseModal }: PurchaseModalProps) 
             <LoadingComponent />
         </article>
     ) :  isFinished ? (
-        <article className={styles.container}>
+        <article className={`${styles.container} ${styles.purchaseCompleteContainer}`}>
             <header>
                 <CloseIcon className={styles.navigationButton} onClick={() => togglePurchaseModal(null)} />
             </header>
@@ -48,6 +49,9 @@ const PurchaseModal = ({ chosenPlan, togglePurchaseModal }: PurchaseModalProps) 
                 <p>Enjoy your benefits!</p>
                 <SatisfiedIcon className={styles.purchaseImage} />
             </div>
+            <footer className={styles.purchaseFooter}>
+                Do you have any questions?<span><Link to={"https://suporte.valcann.com.br/"} target="_blank">support</Link></span>
+            </footer>
         </article>
     ) : (
         <article className={styles.container}>

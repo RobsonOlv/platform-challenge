@@ -164,6 +164,24 @@
     opacity: 0.7;
 }
 
+.purchaseCompleteContainer {
+    padding-inline: 0;
+    padding-bottom: 0;
+}
+
+.purchaseFooter {
+    margin-top: 32px;
+    padding-block: 16px;
+    border-top: 1px solid var(--gray);
+    text-align: center;
+}
+
+.purchaseFooter > span {
+    color: var(--blue);
+    cursor: pointer;
+    margin-left: 8px;
+}
+
 @media screen and (min-width: 40em) {
     .container {
         width: 600px;
@@ -181,6 +199,11 @@
     .priceContainer {
         margin-top: 0;
         justify-content: space-between;
+    }
+
+    .purchaseCompleteContainer {
+        padding-inline: 0;
+        padding-bottom: 0;
     }
 }
 
