@@ -98,10 +98,6 @@ const AuthContextProvider = ({ children, ...props }: Props) => {
     const writeUserData = async (purchasedPlanID: string) => {
         if(userData && userData.email) {
             const message: string = await FirebaseService.writeUserData(userData.uid, userData.email, purchasedPlanID)
-            if(!message) {
-                return ''
-            }
-
             return message
         }
         toggleAuthModal(true)

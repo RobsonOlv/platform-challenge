@@ -49,6 +49,7 @@ const PlansPage = () => {
 
   useEffect(() => {
     if(!userData) return
+
     async function fetchPurchasedPlan() {
       const data = await getUserSubscription().then((result) => {
         return result
@@ -88,7 +89,7 @@ const PlansPage = () => {
       <div className={styles.subcontainer}>
         {
           dashboardActive && userData && purchasedPlan && plansData.length > 0 && (
-            <Dashboard purchasedPlan={purchasedPlanData} togglePlanChange={togglePlanChange} />
+            <Dashboard purchasedPlan={purchasedPlanData} updatePurchasedPlan={setPurchasedPlan} togglePlanChange={togglePlanChange} />
           )
         }
         {
