@@ -21,7 +21,7 @@ const HomePage = () => {
                             Planejamento, execução e otimização de estratégias de migração para a Nuvem, com construção de jornada de adoção de Nuvem, plano de execução e migração.
                         </p>
                     </div>
-                    <img src="https://lh3.googleusercontent.com/U8XJwjwCg1w6awmeS7USpkosIwSuQnAbYx61dGJ4f7UKcZvWKJpoMYsbOuxO4jc-B9F2TjoApGVpDcROA5Dg3n2vEeYJAF9RJ_xr8pnVMlu0fa-v-wLb4Ooq4k7rbIuOKg=w1280" alt="Imagem de trilha de migração" />
+                    <img src="valcann-cloud-migration.png" alt="Imagem de trilha de migração" />
                 </div>
             </section>
         </div>
