@@ -7,6 +7,7 @@
 
 .container > header {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
     max-width: 700px;
@@ -30,6 +31,7 @@
 }
 
 .planDescription {
+    text-align: center;
     margin-bottom: 32px;
 }
 
@@ -41,10 +43,6 @@
     max-width: 700px;
     text-align: center;
     margin-bottom: 24px;
-}
-
-.planDescription > p {
-
 }
 
 .container > img{
@@ -59,13 +57,22 @@
     width: 100%;
     max-width: 700px;
     margin-block: 24px;
+    gap: 2rem;
 }
 
 .customersContainer > img {
-    width: 60%;
+    width: 300px;
 }
 
 @media screen and (min-width: 52em) {
+    .container > header {
+        flex-direction: row;
+    }
+
+    .planDescription {
+        text-align: start;
+    }
+
     .planDescription > h2 {
         text-align: start;
     }

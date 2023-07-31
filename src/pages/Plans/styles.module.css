@@ -84,10 +84,13 @@
 
 .changePlanHeader {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
     padding-inline: 24px;
     margin-bottom: 64px;
+    text-align: center;
+    gap: 2rem;
 }
 
 .changePlanHeader > h2 {
@@ -171,8 +174,6 @@
     background-color: rgba(0, 0, 0, 0.7);
 }
 
-@media screen and (min-width: 40em) {
-}
 
 @media screen and (min-width: 52em) {
     .infoContainer {
@@ -186,6 +187,11 @@
 
     .infoContainer > img {
         width: 380px;
+    }
+
+    .changePlanHeader {
+        flex-direction: row;
+        text-align: start;
     }
 
     .questionsContainer {
@@ -204,4 +210,3 @@
         width: 800px;   
     }
 }
-@media screen and (min-width: 80em) {}
