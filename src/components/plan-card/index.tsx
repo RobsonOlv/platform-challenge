@@ -9,13 +9,14 @@ import styles from './styles.module.css'
 
 interface PlanCardProps {
     plan: Plan,
+    purchasedPlan: string,
     togglePurchaseModal: (plan: Plan) => void
 }
 
-const PlanCard = ({ plan, togglePurchaseModal }: PlanCardProps) => {
+const PlanCard = ({ plan, purchasedPlan, togglePurchaseModal }: PlanCardProps) => {
     const { userData, toggleAuthModal } = useContext(AuthContext)
     const [int, decim] = String(plan.price).split('.')
-
+    
     const purchase = () => {
         if(!userData) {
             toggleAuthModal(true)
@@ -59,8 +60,10 @@ const PlanCard = ({ plan, togglePurchaseModal }: PlanCardProps) => {
                         </ul>
                     </div>
                 </div>
-                <button onClick={purchase}>
-                    Aproveitar oferta
+                <button onClick={purchase} disabled={purchasedPlan === plan.id}>
+                    {
+                        purchasedPlan === plan.id ? 'Current Plan' : 'Aproveitar oferta'
+                    }
                 </button>
             </div>
             <footer>

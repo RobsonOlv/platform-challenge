@@ -68,7 +68,12 @@
     transition: 0.3s ease-out;
 }
 
-.planCardBody > button:hover {
+.planCardBody > button:disabled {
+    background-color: var(--gray);
+    border: 1px solid var(--gray);
+}
+
+.planCardBody > button:hover:enabled {
     background: var(--white);
     color: var(--blue);
 }

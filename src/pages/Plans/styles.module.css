@@ -77,8 +77,31 @@
 
 .plansBox {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     width: 100%;
+}
+
+.changePlanHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: 24px;
+    margin-bottom: 64px;
+}
+
+.changePlanHeader > h2 {
+    font-size: 34px;
+    color: var(--blue);
+    font-weight: 500;
+}
+
+.changePlanHeader > span {
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s ease-out;
+    color: var(--purple);
+    font-weight: 500;
 }
 
 .plansContainer {

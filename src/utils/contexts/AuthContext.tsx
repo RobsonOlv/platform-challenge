@@ -1,6 +1,7 @@
 import { ReactNode, createContext, useEffect, useState } from "react"
 import { onAuthStateChanged, User } from 'firebase/auth'
 import FirebaseService, { auth } from 'utils/services/firebase.service'
+import { Plan } from "utils/typings/interfaces"
 
 type ContextType = {
     userData: User | null
@@ -12,11 +13,17 @@ type ContextType = {
     register: (email: string, password: string) => Promise<string>
     toggleAuthModal: (value: boolean) => void
     toggleSignUp: (value: boolean) => void
+    writeUserData: (purchasedPlanID: string) => Promise<string>
+    getUserSubscription: () => Promise<{ purchasedPlan: string, error: string }>
+    getPlans: () => Promise<{ plans: Plan[], error: string }>
 }
 
 interface Props extends Partial<ContextType> {
     children: ReactNode
   }
+
+const getUserSubscriptionDefault = { purchasedPlan: '', error: '' }
+const getPlansDefault = { plans: [], error: '' }
 
 
 export const AuthContext = createContext<ContextType>({
@@ -28,7 +35,10 @@ export const AuthContext = createContext<ContextType>({
     logout: () => undefined,
     register: async () => '',
     toggleAuthModal: () => undefined,
-    toggleSignUp: () => undefined
+    toggleSignUp: () => undefined,
+    writeUserData: async () => '',
+    getUserSubscription: async () => getUserSubscriptionDefault,
+    getPlans: async () => getPlansDefault,
 })
 
 const AuthContextProvider = ({ children, ...props }: Props) => {
@@ -85,6 +95,36 @@ const AuthContextProvider = ({ children, ...props }: Props) => {
         return message
     }
 
+    const writeUserData = async (purchasedPlanID: string) => {
+        if(userData && userData.email) {
+            const message: string = await FirebaseService.writeUserData(userData.uid, userData.email, purchasedPlanID)
+            if(!message) {
+                return ''
+            }
+
+            return message
+        }
+        toggleAuthModal(true)
+        return 'Not logged in'
+    }
+
+    const getUserSubscription = async () => {
+        if(userData) {
+            const response = await FirebaseService.getUserSubscription(userData.uid)
+            return response
+        } 
+
+        return {
+            purchasedPlan: '',
+            error: ''
+        }
+    }
+
+    const getPlans = async () => {
+        const response = await FirebaseService.getPlans()
+        return response
+    }
+
     useEffect(() => {
         onAuthStateChanged(auth, (currentUser) => {
             setUserData(currentUser)
@@ -103,6 +143,9 @@ const AuthContextProvider = ({ children, ...props }: Props) => {
             register,
             toggleAuthModal,
             toggleSignUp,
+            writeUserData,
+            getUserSubscription,
+            getPlans,
             ...props,
         }}
         >

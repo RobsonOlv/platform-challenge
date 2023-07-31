@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
+import { getFirestore, collection, getDocs, setDoc, doc, getDoc } from 'firebase/firestore/lite';
 import { getAuth, signInWithEmailAndPassword, signOut, 
-    createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
+    createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, getAdditionalUserInfo } from 'firebase/auth'
 import { PostProps } from "components/carousel-section";
 import { Plan } from "utils/typings/interfaces";
 
@@ -21,6 +21,42 @@ const provider = new GoogleAuthProvider();
 export const auth = getAuth(app)
 
 export default class FirebaseService {
+    static checkUser = async (userUID: string) => {
+        const result = await getDoc(doc(db, 'users', userUID))
+        if (result.exists()) return true
+        return false
+    }
+
+    static getUserSubscription = async (userUID: string) => {
+        try {
+            const planID = getDoc(doc(db, 'users', userUID)).then((result) => {
+                const purchasedPlan = result.data()?.purchasedPlan || ''
+                return {
+                    purchasedPlan,
+                    error: ''
+                }
+            })
+            return planID
+        } catch (err: any) {
+            return {
+                purchasedPlan: '',
+                error: err.code as string
+            }
+        }
+    }
+
+    static writeUserData = async (userUID: string, email: string, purchasedPlan?: string) => {
+        try {
+            await setDoc(doc(db, 'users', userUID), {
+                email: email,
+                purchasedPlan: purchasedPlan || ''
+            })
+            return ''
+        } catch (err: any) {
+            return err.code as string
+        }
+    }
+
     static login = async (email: string, password: string) => {
         try {
             await signInWithEmailAndPassword(auth, email, password)
@@ -32,7 +68,11 @@ export default class FirebaseService {
 
     static googleLogin = async () => {
         try {
-            await signInWithPopup(auth, provider)
+            const result = await signInWithPopup(auth, provider)
+            const isRegister = getAdditionalUserInfo(result)?.isNewUser
+            if(isRegister) {
+                FirebaseService.writeUserData( result.user.uid, result.user.email || '', '')
+            }
             return ''
         } catch (err: any) {
             return err.code as string
@@ -41,7 +81,8 @@ export default class FirebaseService {
 
     static register = async (email: string, password: string) => {
         try {
-            await createUserWithEmailAndPassword(auth, email, password)
+            const result = await createUserWithEmailAndPassword(auth, email, password)
+            FirebaseService.writeUserData( result.user.uid, email, '')
             return ''
         } catch (err: any) {
             return err.code
@@ -57,11 +98,14 @@ export default class FirebaseService {
             const plans = await getDocs(collection(db, 'plans'))
             let result: Plan[] = []
             plans.forEach((doc) => {
-                result.push(doc.data() as Plan)
+                result.push({
+                    id: doc.id,
+                    ...doc.data()
+                } as Plan)
             })
-            return { success: result }
+            return { plans: result, error: '' }
         } catch (err: any) {
-            return { error: err.code }
+            return { plans: [], error: err.code }
         }
     }
 

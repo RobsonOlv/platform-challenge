@@ -1,13 +1,14 @@
-import CloseIcon from 'components/images/close-icon'
+import { useContext, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { AuthContext } from 'utils/contexts/AuthContext'
 import { Plan } from 'utils/typings/interfaces'
+import LoadingComponent from 'components/loading'
+import CloseIcon from 'components/images/close-icon'
 import ConfirmIcon from 'components/images/confirm-icon'
 import FilledCloseIcon from 'components/images/filled-close-icon'
+import SatisfiedIcon from 'components/images/satisfied-icon'
 
 import styles from './styles.module.css'
-import LoadingComponent from 'components/loading'
-import { useEffect, useState } from 'react'
-import SatisfiedIcon from 'components/images/satisfied-icon'
-import { Link } from 'react-router-dom'
 
 interface PurchaseModalProps {
     chosenPlan: Plan
@@ -15,15 +16,19 @@ interface PurchaseModalProps {
 }
 
 const PurchaseModal = ({ chosenPlan, togglePurchaseModal }: PurchaseModalProps) => {
+    const { writeUserData  } = useContext(AuthContext)
+    const [errorMessage, setErrorMessage] = useState('')
     const [isLoading, setIsLoading] = useState(false)
     const [isFinished, setIsFinished] = useState(false)
 
-    const purchase = () => {
+    const purchase = async () => {
         setIsLoading(true)
-        setTimeout(() => {
-            setIsLoading(false)
+        const message = await writeUserData(chosenPlan.id)
+        if(!message) {
             setIsFinished(true)
-        }, 2000)
+        } else {
+            setErrorMessage(message)
+        }
 
     }
 
@@ -100,6 +105,11 @@ const PurchaseModal = ({ chosenPlan, togglePurchaseModal }: PurchaseModalProps) 
                 <button className={styles.cancelButton} onClick={() => togglePurchaseModal(null)}>Cancel</button>
                 <button className={styles.purchaseButton} onClick={purchase}>Purchase</button>
             </div>
+            {
+                errorMessage && (
+                    <span className={styles.errorMessage}>{errorMessage}</span>
+                )
+            }
         </article>
     )
 }

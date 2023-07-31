@@ -1,29 +1,39 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import FirebaseService from "utils/services/firebase.service";
+import { AuthContext } from "utils/contexts/AuthContext";
 import useClickOutside from "utils/hooks/useClickOutside";
 import { Plan } from "utils/typings/interfaces";
 import PlanCard from "components/plan-card";
 import GraphImage from "components/images/graph";
 import PurchaseModal from "components/purchase-card";
+import LoadingComponent from "components/loading";
+import Dashboard from "components/dashboard";
 
 import styles from "./styles.module.css";
-import LoadingComponent from "components/loading";
 
 const PlansPage = () => {
+  const { userData, getPlans, getUserSubscription } = useContext(AuthContext)
   const [plansData, setPlansData] = useState<Plan[]>([]);
   const [chosenPlan, setChosenPlan] = useState<Plan | null>(null)
   const [isLoading, setIsLoading] = useState(true)
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState('')
+  const [purchasedPlan, setPurchasedPlan ] = useState('')
+  const [dashboardActive, setDashboardActive] = useState(true)
   const modalRef = useRef(null)
+
+  const purchasedPlanData = plansData.find((plan) => plan.id === purchasedPlan)!
 
   const toggleModal = (plan: Plan | null) => {
     setChosenPlan(plan)
   }
 
+  const togglePlanChange = () => {
+    setDashboardActive(!dashboardActive)
+  }
+
   useEffect(() => {
     async function fetchData() {
-      const data = await FirebaseService.getPlans().then((result) => {
+      const data = await getPlans().then((result) => {
         setIsLoading(false)
         return result
       });
@@ -31,11 +41,25 @@ const PlansPage = () => {
       if (data.error) {
         setErrorMessage(data.error);
       } else {
-        setPlansData(data.success || []);
+        setPlansData(data.plans);
       }
     }
     fetchData();
-  }, []);
+  }, [getPlans]);
+
+  useEffect(() => {
+    if(!userData) return
+    async function fetchPurchasedPlan() {
+      const data = await getUserSubscription().then((result) => {
+        return result
+      });
+
+      if (!data.error) {
+        setPurchasedPlan(data.purchasedPlan);
+      } 
+    }
+    fetchPurchasedPlan();
+  }, [getUserSubscription, userData, chosenPlan]);
 
   useEffect(() => {
     if (document) {
@@ -51,39 +75,57 @@ const PlansPage = () => {
         <GraphImage className={styles.infoBackground} />
         <article>
           <h1 className={styles.infoContainerTitle}>
-            Escolha o plano IDEAL para você
+            Choose the right plan for you
           </h1>
           <h4 className={styles.infoContainerSubtitle}>
-            Temos opções que vão desde...
+            We have plans with different levels to fit your use case.
           </h4>
           <footer>
-            ao assinar um plano, você concorda com os termos de serviço...
+            by subscribing to a plan, you agree to the terms of service.
           </footer>
         </article>
       </section>
       <div className={styles.subcontainer}>
-        <section className={styles.plansBox}>
-          {
-            isLoading ? (
-              <LoadingComponent />
-            ) : (
-              <div className={styles.plansContainer}>
-                {plansData.map((plan) => (
-                  <PlanCard
-                    key={`plan-card-${plan.title}`}
-                    plan={plan}
-                    togglePurchaseModal={toggleModal}
-                  />
-                ))}
-              </div>
-            )
-          }
-          {errorMessage && (
-            <span
-              className={styles.errorMessage}
-            >{`Failed =/ : ${errorMessage}`}</span>
-          )}
-        </section>
+        {
+          dashboardActive && userData && purchasedPlan && plansData.length > 0 && (
+            <Dashboard purchasedPlan={purchasedPlanData} togglePlanChange={togglePlanChange} />
+          )
+        }
+        {
+          ( !purchasedPlan || !dashboardActive) && (
+            <section className={styles.plansBox}>
+              {
+                userData && purchasedPlan && (
+                  <div className={styles.changePlanHeader}>
+                    <h2>Change your plan</h2>
+                    <span onClick={togglePlanChange}>back to Dashboard</span>
+                  </div>
+                )
+              }
+              {
+                isLoading ? (
+                  <LoadingComponent />
+                ) : (
+                  <div className={styles.plansContainer}>
+                    {plansData.map((plan) => (
+                      <PlanCard
+                        key={`plan-card-${plan.id}`}
+                        plan={plan}
+                        purchasedPlan={userData ? purchasedPlan : ''}
+                        togglePurchaseModal={toggleModal}
+                      />
+                    ))}
+                  </div>
+                )
+              }
+              {errorMessage && (
+                <span
+                  className={styles.errorMessage}
+                >{`Failed =/ : ${errorMessage}`}</span>
+              )}
+            </section>
+          )
+        }
         <section className={styles.questionsContainer}>
           <div className={styles.questionsDescription}>
             <h2>Questions?</h2>

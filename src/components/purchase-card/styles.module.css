@@ -182,6 +182,13 @@
     margin-left: 8px;
 }
 
+.errorMessage {
+    display: block;
+    color: var(--danger);
+    width: 100%;
+    text-align: center;
+}
+
 @media screen and (min-width: 40em) {
     .container {
         width: 600px;
