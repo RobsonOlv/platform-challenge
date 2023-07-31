@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useRef, useState } from 'react'
 import { AuthContext } from 'utils/contexts/AuthContext'
 
 import HamburgerMenuIcon from 'components/images/hamburguer-menu-icon'
@@ -6,14 +6,22 @@ import OutlinedCloseIcon from 'components/images/outlined-close-icon'
 import ArrowIcon from 'components/images/arrow-icon'
 
 import styles from './styles.module.css'
+import useClickOutside from 'utils/hooks/useClickOutside'
 
 const HamburgerMenu = () => {
-    const [isOpen, setIsOpen] = useState(false)
     const { userData, logout, toggleAuthModal } = useContext(AuthContext)
+    const modalRef = useRef(null)
+    const [isOpen, setIsOpen] = useState(false)
+
+    const toggleModal = (value: boolean) => {
+        setIsOpen(value)
+    }
+
+    useClickOutside(modalRef, toggleModal)
 
     return (
         <section className={styles.hamburgerMenuContainer}>
-            <button onClick={() => setIsOpen(!isOpen)}>
+            <button onClick={() => toggleModal(!isOpen)}>
                 {
                     isOpen ? <OutlinedCloseIcon className={styles.hamburgerMenuIcon} /> : <HamburgerMenuIcon className={styles.hamburgerMenuIcon} />
                 }
@@ -21,7 +29,7 @@ const HamburgerMenu = () => {
             {
                 isOpen && <div className={styles.modal} />
             }
-            <nav className={styles.hamburgerNav} style={{ left: isOpen ? '0' : '-100%'  }}>
+            <nav ref={modalRef} className={styles.hamburgerNav} style={{ left: isOpen ? '0' : '-100%'  }}>
                 <ul className={styles.hamburgerLinks}>
                     <a href="https://www.valcann.com.br/valcann/carreiras" target="_blank" rel="noreferrer">
                         <li>
