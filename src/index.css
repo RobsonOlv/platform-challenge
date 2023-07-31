@@ -6,6 +6,11 @@
   font: inherit;
 }
 
+a, a:hover, a:visited {
+  text-decoration: none;
+  color: inherit;
+}
+
 body {
   margin: 0;
   font-family: 'Sora', sans-serif;

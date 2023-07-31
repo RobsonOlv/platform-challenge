@@ -24,23 +24,23 @@ const HamburgerMenu = () => {
             <nav className={styles.hamburgerNav} style={{ left: isOpen ? '0' : '-100%'  }}>
                 <ul className={styles.hamburgerLinks}>
                     <li>
-                        Quem somos?
+                        <a href="https://www.valcann.com.br/valcann/carreiras" target="_blank" rel="noreferrer">About</a>
                         <ArrowIcon />
                     </li>
                     <li>
-                        Serviços
+                        <a href="/plans">Services</a>
                         <ArrowIcon />
                     </li>
                     <li>
-                        Time
+                        <a href="https://www.valcann.com.br/valcann/carreiras" target="_blank" rel="noreferrer">Team</a>
                         <ArrowIcon />
                     </li>
                     <li>
-                        Suporte
+                        Support
                         <ArrowIcon />
                     </li>
                     <li  onClick={() => userData === null ? toggleAuthModal(true) : logout()} style={{ color: userData === null ? 'var(--blue)' : 'var(--danger)', border: 'none' }}>
-                        {userData === null ? 'Login': 'Logout'}
+                        {userData === null ? 'Sign In': 'Sign Out'}
                         <ArrowIcon />
                     </li>
                 </ul>

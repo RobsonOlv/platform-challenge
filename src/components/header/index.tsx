@@ -12,12 +12,12 @@ const Header = () => {
             </a>
             <nav className={styles.rightLinksContainer}>
                 <ul className={styles.rightLinks}>
-                    <li>Quem somos?</li>
-                    <li>Serviços</li>
-                    <li>Time</li>
-                    <li>Suporte</li>
+                    <li><a href="https://www.valcann.com.br/valcann/quem-somos" target="_blank" rel="noreferrer">About</a></li>
+                    <li><a href="/plans">Services</a></li>
+                    <li><a href="https://www.valcann.com.br/valcann/carreiras" target="_blank" rel="noreferrer">Team</a></li>
+                    <li><a href="https://suporte.valcann.com.br/" target="_blank" rel="noreferrer">Support</a></li>
                     <li onClick={() => userData === null ? toggleAuthModal(true) : logout()} style={{ color: userData === null ? 'var(--blue)' : 'var(--danger)' }}>
-                        {userData === null ? 'Login': 'Logout'}
+                        {userData === null ? 'Sign In': 'Sign Out'}
                     </li>
                 </ul>
             </nav>
