@@ -1,17 +1,16 @@
 import { useFormik } from 'formik'
-import { useContext, useState } from 'react'
+import { forwardRef, useContext, useState } from 'react'
 import { AuthContext } from 'utils/contexts/AuthContext'
 import { validate } from 'utils/functions'
-import FirebaseService from 'utils/services/firebase.service'
 
 import AvatarIcon from 'components/images/avatar-icon'
 import LockIcon from 'components/images/lock-icon'
 import CloseIcon from 'components/images/close-icon'
-import ArrowBackIcon from 'components/images/arrow-back'
+import ArrowBackIcon from 'components/images/arrow-back-icon'
 
 import styles from '../styles.module.css'
 
-const SignUp = () => {
+const SignUp = forwardRef<HTMLElement>((props, ref) => {
     const { signUpActive, register, toggleAuthModal, toggleSignUp } = useContext(AuthContext)
     const [loginError, setLoginError] = useState('')
 
@@ -31,7 +30,7 @@ const SignUp = () => {
     });
 
     return (
-        <article className={styles.article}>
+        <article ref={ref} className={styles.article}>
             <header>
                 <CloseIcon className={styles.navigationButton} onClick={() => toggleAuthModal(false)} />
             </header>
@@ -101,6 +100,6 @@ const SignUp = () => {
             </footer>
         </article>
     )
-}
+})
 
 export default SignUp

@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { forwardRef, useContext, useState } from 'react'
 import { useFormik } from 'formik'
 import { AuthContext } from 'utils/contexts/AuthContext'
 import { validate } from 'utils/functions'
@@ -9,7 +9,7 @@ import CloseIcon from 'components/images/close-icon'
 
 import styles from '../styles.module.css'
 
-const SignIn = () => {
+const SignIn = forwardRef<HTMLElement>((props, ref) => {
     const { signUpActive, login, googleLogin, toggleAuthModal, toggleSignUp } = useContext(AuthContext)
     const [loginError, setLoginError] = useState('')
 
@@ -33,7 +33,7 @@ const SignIn = () => {
     }
 
     return (
-        <article className={styles.article}>
+        <article ref={ref} className={styles.article}>
             <header>
                 <CloseIcon className={styles.navigationButton} onClick={() => toggleAuthModal(false)} />
             </header>
@@ -94,6 +94,6 @@ const SignIn = () => {
             </footer>
         </article>
     )
-}
+})
 
 export default SignIn

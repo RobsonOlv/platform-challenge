@@ -1,16 +1,26 @@
-import { useContext } from 'react'
+import { useContext, useEffect, useRef } from 'react'
+import { AuthContext } from 'utils/contexts/AuthContext'
 import SignUp from './SignUp'
 import SignIn from './SignIn'
 import styles from './styles.module.css'
-import { AuthContext } from 'utils/contexts/AuthContext'
+import useClickOutside from 'utils/hooks/useClickOutside'
 
 const Auth = () => {
-    const { authModalActive, signUpActive } = useContext(AuthContext)
+    const { authModalActive, signUpActive, toggleAuthModal } = useContext(AuthContext)
+    const modalRef = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        if (document) {
+            document.body.style.overflow = authModalActive ? 'hidden' : 'unset'
+        }
+    }, [authModalActive])
+
+    useClickOutside(modalRef, toggleAuthModal)
 
     return authModalActive ? (
         <div className={styles.container}>
             {
-                signUpActive ? <SignUp /> : <SignIn />
+                signUpActive ? <SignUp ref={modalRef} /> : <SignIn ref={modalRef} />
             }
         </div>
     ) : null
