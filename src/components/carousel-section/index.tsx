@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import styles from './styles.module.css'
 import { useEffect, useState } from 'react'
 import FirebaseService from 'utils/services/firebase.service'
+import LoadingComponent from 'components/loading'
 
 export interface PostProps {
     title: string,
@@ -14,13 +15,17 @@ export interface PostProps {
 const CarouselSection = () => {
     const [userSelect, setUserSelect] = useState(false)
     const [cardIndex, setCardIndex] = useState(0)
+    const [isLoading, setIsLoading] = useState(true)
     const [errorMessage, setErrorMessage] = useState('')
 
     const [postData, setPostData] = useState<PostProps[]>([])
     
     useEffect(() => {
         async function fetchData() {
-            const data = await FirebaseService.getPosts()
+            const data = await FirebaseService.getPosts().then((result) => {
+                setIsLoading(false)
+                return result
+            })
             if (data.error) {
                 setErrorMessage(data.error)
             } else {
@@ -58,14 +63,20 @@ const CarouselSection = () => {
 
     return (
         <section className={styles.container}>
-            <div className={styles.subcontainer}>
-                {
-                    postData.map((post, index) => 
-                    (
-                        <CarouselCard key={`blog-post-${post.title}`} {...post} index={index} />
-                    ))
-                }
-            </div>
+            {
+                isLoading ? (
+                    <LoadingComponent />
+                ) : (
+                    <div className={styles.subcontainer}>
+                        {
+                            postData.map((post, index) => 
+                            (
+                                <CarouselCard key={`blog-post-${post.title}`} {...post} index={index} />
+                            ))
+                        }
+                    </div>
+                )
+            }
             {
                 errorMessage && <span className={styles.errorMessage}>{`Failed =/ : ${errorMessage}`}</span>
             }
