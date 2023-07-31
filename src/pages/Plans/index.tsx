@@ -67,7 +67,7 @@ const PlansPage = () => {
       }
   }, [chosenPlan])
 
-  useClickOutside(modalRef, () => setChosenPlan(null))
+  useClickOutside(modalRef, chosenPlan !== null, () => setChosenPlan(null))
 
   return (
     <div className={styles.container}>

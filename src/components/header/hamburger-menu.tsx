@@ -17,7 +17,7 @@ const HamburgerMenu = () => {
         setIsOpen(value)
     }
 
-    useClickOutside(modalRef, toggleModal)
+    useClickOutside(modalRef, isOpen, toggleModal)
 
     return (
         <section className={styles.hamburgerMenuContainer}>

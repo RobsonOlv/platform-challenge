@@ -15,7 +15,7 @@ const Auth = () => {
         }
     }, [authModalActive])
 
-    useClickOutside(modalRef, toggleAuthModal)
+    useClickOutside(modalRef, authModalActive, toggleAuthModal)
 
     return authModalActive ? (
         <div className={styles.container}>
