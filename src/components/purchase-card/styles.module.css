@@ -1,0 +1,188 @@
+.container {
+    position: absolute;
+    background-color: var(--white);
+    border-radius: 4px;
+    padding-top: 24px;
+    width: 270px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 24px;
+    width: 80%;
+}
+
+.container > header {
+    padding-inline: 32px;
+    text-align: end;
+}
+
+.navigationButton {
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.navigationButton:hover {
+    transform: scale(1.5);
+}
+
+.container > h2 {
+    font-weight: 600;
+    margin-bottom: 16px;
+    margin-top: 24px;
+}
+
+.container > p {
+    margin-bottom: 24px;
+    font-size: 12px;
+}
+
+.container > span {
+    margin-top: 12px;
+    font-size: 12px;
+}
+
+.chosenPlan {
+    border-radius: 4px;
+    border: 1px solid var(--gray);
+}
+
+.chosenPlan > header {
+    padding-inline: 24px;
+    padding-block: 8px;
+    color: white;
+    font-size: 12px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    text-align: center;
+}
+
+.chosenPlan > div {
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    justify-content: space-between;
+}
+
+.includesContainer > ul {
+    margin-top: 10px;
+    padding-left: 10px;
+}
+
+.includesContainer li {
+    display: flex;
+    margin-bottom: 8px;
+}
+
+.includesContainer li > p {
+    font-size: 12px;
+}
+
+.includesContainerIcon {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+}
+
+.priceContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-size: 14px;
+    margin-top: 12px;
+}
+
+.pricePromotion {
+    padding: 4px;
+    background-color: var(--gray);
+    opacity: 0.7;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+.pricePromotion > span {
+    font-weight: 300;
+    margin-left: 4px;
+}
+
+.buttonsContainer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 32px;
+    gap: 2rem;
+}
+
+.buttonsContainer > button {
+    border-radius: 4px;
+    padding-block: 4px;
+    padding-inline: 12px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s ease-out;
+}
+
+.cancelButton {
+    color: var(--blue);
+    background-color: var(--white);
+    border: 1px solid var(--white);
+}
+
+.cancelButton:hover {
+    color: var(--danger);
+}
+
+.purchaseButton {
+    color: var(--white);
+    background-color: var(--blue);
+    border: 1px solid var(--blue);
+}
+
+.purchaseButton:hover {
+    color: var(--blue);
+    background-color: var(--white);
+}
+
+.purchaseText {
+    text-align: center;
+    margin-top: 32px;
+}
+
+.purchaseText > h2 {
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--purple);
+}
+
+.purchaseImage {
+    margin-top: 32px;
+    width: 100px;
+    height: auto;
+}
+
+.purchaseImage path {
+    fill: var(--purple);
+    opacity: 0.7;
+}
+
+@media screen and (min-width: 40em) {
+    .container {
+        width: 600px;
+        padding: 32px;
+    }
+
+    .chosenPlan > header {
+        text-align: start;
+    }
+
+    .chosenPlan > div {
+        flex-direction: row;
+    }
+
+    .priceContainer {
+        margin-top: 0;
+        justify-content: space-between;
+    }
+}
+
+@media screen and (min-width: 52em) {
+}
