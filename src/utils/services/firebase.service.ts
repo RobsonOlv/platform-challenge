@@ -2,8 +2,8 @@ import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
 import { getAuth, signInWithEmailAndPassword, signOut, 
     createUserWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
-import { PlanCardProps } from "components/plan-card";
 import { PostProps } from "components/carousel-section";
+import { Plan } from "utils/typings/interfaces";
 
 const firebaseConfig = {
     apiKey: "AIzaSyD6Cu5R5OAXDiz2lSIfLpGa-VpSaRMdrS8",
@@ -55,9 +55,9 @@ export default class FirebaseService {
     static getPlans = async () => {
         try {
             const plans = await getDocs(collection(db, 'plans'))
-            let result: PlanCardProps[] = []
+            let result: Plan[] = []
             plans.forEach((doc) => {
-                result.push(doc.data() as PlanCardProps)
+                result.push(doc.data() as Plan)
             })
             return { success: result }
         } catch (err: any) {

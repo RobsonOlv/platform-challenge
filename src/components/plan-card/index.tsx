@@ -1,39 +1,34 @@
 import { useContext } from 'react'
 import { AuthContext } from 'utils/contexts/AuthContext'
+import { Plan } from 'utils/typings/interfaces'
 import TriangleImage from 'components/images/triangle'
 import ConfirmIcon from 'components/images/confirm-icon'
 import FilledCloseIcon from 'components/images/filled-close-icon'
 
 import styles from './styles.module.css'
 
-export interface PlanCardProps {
-    title: string,
-    price: number,
-    color: string,
-    includes: {
-        name: string,
-        check: boolean
-    }[],
-    url?: string,
+interface PlanCardProps {
+    plan: Plan,
+    togglePurchaseModal: (plan: Plan) => void
 }
 
-const PlanCard = ({ title, price, color, includes, url }: PlanCardProps) => {
+const PlanCard = ({ plan, togglePurchaseModal }: PlanCardProps) => {
     const { userData, toggleAuthModal } = useContext(AuthContext)
-    const [int, decim] = String(price).split('.')
+    const [int, decim] = String(plan.price).split('.')
 
     const purchase = () => {
         if(!userData) {
             toggleAuthModal(true)
         } else {
-            console.log('implementar a compra')
+            togglePurchaseModal(plan)
         }
     }
 
     return (
         <article className={styles.planCard}>
-            <header className={styles.planCardName} style={{ backgroundColor: color }}>
-                <p>{title}</p>
-                <TriangleImage fill={color} className={styles.planCardTriangle} />
+            <header className={styles.planCardName} style={{ backgroundColor: plan.color }}>
+                <p>{plan.title}</p>
+                <TriangleImage fill={plan.color} className={styles.planCardTriangle} />
             </header>
             <div className={styles.planCardBody}>
                 <div>
@@ -50,8 +45,8 @@ const PlanCard = ({ title, price, color, includes, url }: PlanCardProps) => {
                         </p>
                         <ul>
                             {
-                                includes.map((include, index) => (
-                                    <li key={`card-include-${title}-${include.name}`}>
+                                plan.includes.map((include, index) => (
+                                    <li key={`card-include-${plan.title}-${include.name}`}>
                                         {
                                             include.check ? <ConfirmIcon className={styles.includesContainerIcon} /> : <FilledCloseIcon className={styles.includesContainerIcon} />
                                         }

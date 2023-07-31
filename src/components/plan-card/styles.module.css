@@ -58,13 +58,19 @@
 .planCardBody > button {
     padding-inline: 20px;
     padding-block: 6px;
-    background: #5BDBF6;
-    color: var(--black);
-    border: none;
+    background: var(--blue);
+    border: 1px solid var(--blue);
+    color: var(--white);
     border-radius: 4px;
     font-size: 16px;
     font-weight: 400;
     cursor: pointer;
+    transition: 0.3s ease-out;
+}
+
+.planCardBody > button:hover {
+    background: var(--white);
+    color: var(--blue);
 }
 
 .planCard > footer {
